@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import "./App.css";
+import TasksList from "./components/TasksList";
+import TaskDetails from "./components/TaskDetails";
+import Default from "./components/Default";
+
+import { getTasks } from "./actions/tasksActions";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getTasks();
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={TasksList} />
+          <Route exact path="/details/:id" component={TaskDetails} />
+          <Route component={Default} />
+        </Switch>
+      </Router>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  getTasks: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  tasks: state.tasks
+});
+
+export default connect(
+  mapStateToProps,
+  { getTasks }
+)(App);
