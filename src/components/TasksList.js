@@ -8,13 +8,8 @@ class TasksList extends Component {
     const { isLoading, tasks } = this.props;
     if (isLoading)
       return (
-        <div>
-          <div
-            className="ui active centered inline text loader"
-            style={{ minHeight: "150px" }}
-          >
-            Loading tasks
-          </div>
+        <div className="ui active centered inline text loader">
+          Loading tasks
         </div>
       );
     if (tasks.length > 0)
