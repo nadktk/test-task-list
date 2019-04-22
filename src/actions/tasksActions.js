@@ -21,7 +21,7 @@ export const getTasks = () => dispatch => {
     return;
   }
 
-  axios
+  return axios
     .get("https://raw.githubusercontent.com/nadktk/temp/master/tasks.json")
     .then(res => {
       dispatch({
@@ -43,17 +43,22 @@ export const updateTask = (id, newTask, allTasks) => dispatch => {
   dispatch({
     type: UPDATE_TASK_REQUEST
   });
-  axios
+  return axios
     .put(`https://someaddress.com/api/tasks/${id}`, newTask)
     .then(res => {
-      // todo
+      // todo: to be changed
+      dispatch({
+        type: UPDATE_TASK_SUCCESS,
+        payload: allTasks
+      });
+      localStorage.setItem("tasks", JSON.stringify(allTasks));
     })
     .catch(err => {
-      // todo
+      // todo: to be changed
+      dispatch({
+        type: UPDATE_TASK_SUCCESS,
+        payload: allTasks
+      });
+      localStorage.setItem("tasks", JSON.stringify(allTasks));
     });
-  dispatch({
-    type: UPDATE_TASK_SUCCESS,
-    payload: allTasks
-  });
-  localStorage.setItem("tasks", JSON.stringify(allTasks));
 };
