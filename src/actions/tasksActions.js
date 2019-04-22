@@ -43,22 +43,17 @@ export const updateTask = (id, newTask, allTasks) => dispatch => {
   dispatch({
     type: UPDATE_TASK_REQUEST
   });
+  dispatch({
+    type: UPDATE_TASK_SUCCESS,
+    payload: allTasks
+  });
+  localStorage.setItem("tasks", JSON.stringify(allTasks));
   return axios
     .put(`https://someaddress.com/api/tasks/${id}`, newTask)
     .then(res => {
       // todo: to be changed
-      dispatch({
-        type: UPDATE_TASK_SUCCESS,
-        payload: allTasks
-      });
-      localStorage.setItem("tasks", JSON.stringify(allTasks));
     })
     .catch(err => {
       // todo: to be changed
-      dispatch({
-        type: UPDATE_TASK_SUCCESS,
-        payload: allTasks
-      });
-      localStorage.setItem("tasks", JSON.stringify(allTasks));
     });
 };
