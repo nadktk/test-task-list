@@ -120,7 +120,7 @@ class TaskDetails extends Component {
     const { tasks } = this.props;
     const task = tasks.find(task => String(task.id) === id);
 
-    if (id === undefined) return <Redirect to="/404" />;
+    if (id === undefined || task === undefined) return <Redirect to="/" />;
 
     return (
       <div className="ui vertical segment">
