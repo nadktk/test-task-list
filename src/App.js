@@ -19,7 +19,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={TasksList} />
-          <Route exact path="/details/:id" component={TaskDetails} />
+          <Route path="/details/:id" component={TaskDetails} />
           <Route component={Default} />
         </Switch>
       </Router>
